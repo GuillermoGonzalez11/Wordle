@@ -1,50 +1,55 @@
+
 body {
-    font-family: Arial, sans-serif;
-  }
-     
-  h1 {
-    text-align: center;
-    margin-top: 50px;
-  }
-     
-  #guess-input {
-    display: block;
-    margin: 0 auto 20px;
-    padding: 10px;
-    font-size: 18px;
-    width: 250px;
-    border: 1px solid #ccc;
-  }
-     
-  #guess-button {
-    display: block;
-    margin: 0 auto;
-    padding: 10px 20px;
-    font-size: 18px;
-    background-color: #1ad138;
-    color: #fff;
-    border: none;
-    border-radius: 3px;
-  }
-     
-  button:active {
-      transform: scale(0.95);
-  }
-     
-  .letter {
-      border: 1px solid black;
-      padding: 3px;
-      margin: 3px;
-      min-width: 20px;
-      text-align: center;
-      display: inline-block
-  }
-     
-  .row{
-      margin-bottom: 10px;
-  }
-     
-  .input-area{
-      margin: 30px;
-  }
- 
+	background-image: url('https://i.postimg.cc/FK420fVY/cielo-azul-fondo-nubes-cumulos-concepto-naturaleza-fondos-meteorologicos-atmosfera-289152-2320.jpg');
+	background-size: cover;
+	background-position: center;
+	font-family: 'Times New Roman', Times, serif, sans-serif;
+}
+
+.contenedor {
+	margin: 50px auto;
+	padding: 20px;
+	background-color: rgba(246, 251, 252, 0.8);
+	border-radius: 10px;
+	max-width: 600px;
+
+}
+
+h1 {
+	text-align: center;
+}
+h3 {
+	text-align: center;
+}
+
+#caja1{
+	font-size: 24px;
+	font-weight: bold;
+	flex: 1
+}
+
+#Caja2 {
+	font-size: 24px;
+	font-weight: bold;
+	flex: 1
+}
+
+#Caja3 {
+	font-size: 24px;
+	font-weight: bold;
+	flex: 1
+}
+.cuadro{
+	width: 300px;
+	height: 300px;
+	background-color: white;
+	background-image: url("https://static.vecteezy.com/system/resources/thumbnails/003/127/954/small/abstract-template-blue-background-white-squares-free-vector.jpg");
+	
+
+}
+#info{
+	display: flex;
+	flex-direction: row;
+	gap: 10px;
+	justify-content: space-evenly;
+}
