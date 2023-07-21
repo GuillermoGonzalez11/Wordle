@@ -1,50 +1,69 @@
-const apiKey = "20d66fe92d055ea9c827e1c8dbe9f05d";
-const ciudad = "Fram,py";
-const lang = "es";
-const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${ciudad}&APPID=${apiKey}&units=metric&lang=${lang}`;
-let dato;
-const VIENTO = document.getElementById("viento");
-const ESTADO = document.getElementById("estado");
-const CLIMA = document.getElementById("clima");
-const BUSCADOR = document.getElementById("buscador");
-const BOTON = document.getElementById("boton");
-const TEMPERATURA = document.getElementById("temperatura");
-const MIN = document.getElementById("min");
-const MAX = document.getElementById("max");
-document.addEventListener("DOMContentLoaded",()=>{
-    obtenerDatos(apiUrl)
+let lista = ["ARBOL","ANGEL","MARCO", "CARRO","BARRO","PERRO"]
+//let palabra = "ARBOL"
+//let palabra = lista[Math.floor(Math.random()*lista.length)];
+
+let intentos = 6;
+const API = "https://random-word-api.herokuapp.com/word?length=5&lang=es"
+fetch (API)
+.then(response => response.json ())
+.then(response => {
+    console.log (response)
+    palabra = response[0].toUpperCase()
+    console.log(palabra)
 })
-    BOTON.addEventListener("click",()=>{
-     let valor = BUSCADOR.value;
-     const NewURL = `https://api.openweathermap.org/data/2.5/weather?q=${valor},py&APPID=${apiKey}&units=metric&lang=${lang}`;
-     obtenerDatos(NewURL)
-    })
+.catch(err => palabra = lista [Math.floor(Math.random()*lista.length)]);
 
 
-function obtenerDatos(url) {
-  fetch(url)
-    .then((response) => response.json())
-    .then((response) => {
-      console.log(response);
-      dato = response;
-      let temperatura = dato.main.temp //"Rain"
-      let tempMin = dato.main.temp_min;
-      let tempMax = dato.main.temp_max;
-      TEMPERATURA.innerHTML = dato.main.temp+"°"
-      //MIN.innerHTML = "Min: " + tempMin + "°";
-      //MAX.innerHTML = "Max: " + tempMax + "°";
-      console.log("temp min", tempMin);
-      console.log("temp max", tempMax);
-      let viento = dato.wind.speed;
-      VIENTO.innerHTML = viento + "m/s";
-      console.log(viento);
-      let clima = dato.weather[0].description;
-      let icon = dato.weather[0].icon;
-      ESTADO.innerHTML = clima;
+const BOTON = document.getElementById("guess-button");
 
-      CLIMA.src = `https://openweathermap.org/img/wn/${icon}@2x.png`;
-      console.log(clima);
-    })
-    .catch((err) => console.error(err));
+BOTON.addEventListener("click", intentar);
+
+function intentar(){
+
+    const GRID = document.getElementById('grid');
+    const ROW = document.createElement("div");
+    ROW.className = "row";
+    const INTENTO = leerIntento();
+    if (INTENTO === palabra ) {
+        terminar
+        ("<h1> GANASTE! 👏🤯🥳</h1>")
+    
+    }
+    for (let i in palabra){
+        const SPAN = document.createElement("span")
+        SPAN.className = "letter";
+        if (INTENTO[i]===palabra[i]){
+        SPAN.innerHTML = INTENTO[i]
+           SPAN.style.backgroundColor = "green";
+        } else if( palabra.includes(INTENTO[i]) ) {
+            SPAN.innerHTML = INTENTO[i]
+            SPAN.style.backgroundColor = "yellow";
+        } else {
+            SPAN.innerHTML = INTENTO[i]
+            SPAN.style.backgroundColor = "gray";
+        }
+        ROW.appendChild(SPAN)
+    }
+    GRID.appendChild(ROW)
+    intentos--
+	if (intentos==0){
+        terminar("<h1>PERDISTE!😭😥😓</h1>")
+        
+    }
+
 }
 
+
+function leerIntento(){
+    let intento = document.getElementById("guess-input");
+    intento = intento.value;
+    intento = intento.toUpperCase(); 
+    return intento;
+}
+function terminar(mensaje){
+    const INPUT = document.getElementById("guess-input");
+    INPUT.disabled = true;
+    BOTON.disabled = true;
+    let contenedor = document.getElementById('guesses');
+    contenedor.innerHTML = mensaje;
+}
